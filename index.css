@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --color-navy: #014634;
+  --color-navy-2: #015d47;
+  --color-navy-3: #0a7258;
+  --color-canvas: #fbf5e6;
+  --color-line: #eadcc0;
+  --color-ink: #16241d;
+  --color-mute: #5e5d4c;
+  --color-indigo-50: #fbf5e6;
+  --color-indigo-100: #ffeadb;
+  --color-indigo-200: #e0f354;
+  --color-indigo-300: #ffb996;
+  --color-indigo-400: #ff9a6b;
+  --color-indigo-500: #ff7a3d;
+  --color-indigo-600: #fd550a;
+  --color-indigo-700: #d94400;
+  --color-indigo-950: #014634;
+  --shadow-card: 0 1px 2px rgba(1, 70, 52, 0.04), 0 4px 16px rgba(1, 70, 52, 0.06);
+  --shadow-pop: 0 12px 40px rgba(1, 70, 52, 0.2);
+}
+
+html {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-canvas);
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  min-height: 100vh;
+}
+
+/* Thermal blooms use the existing orange, crest yellow and forest tokens. */
+.thermal-page {
+  background-color: var(--color-canvas);
+  background-image:
+    radial-gradient(ellipse 760px 640px at 100% 0%,
+      color-mix(in srgb, var(--color-indigo-600) 26%, transparent) 0%,
+      color-mix(in srgb, var(--color-indigo-300) 30%, transparent) 27%,
+      color-mix(in srgb, var(--color-indigo-200) 22%, transparent) 48%,
+      transparent 76%),
+    radial-gradient(ellipse 680px 620px at 0% 90%,
+      color-mix(in srgb, var(--color-indigo-600) 16%, transparent) 0%,
+      color-mix(in srgb, var(--color-indigo-200) 22%, transparent) 32%,
+      color-mix(in srgb, var(--color-navy-2) 10%, transparent) 53%,
+      transparent 78%),
+    radial-gradient(ellipse 600px 500px at 56% 48%,
+      color-mix(in srgb, var(--color-indigo-200) 13%, transparent),
+      transparent 74%);
+  background-attachment: fixed;
+}
+
+.thermal-dark {
+  background-color: var(--color-navy);
+  background-image:
+    radial-gradient(ellipse at 100% 5%,
+      color-mix(in srgb, var(--color-indigo-600) 44%, transparent),
+      color-mix(in srgb, var(--color-indigo-200) 18%, transparent) 27%,
+      transparent 62%),
+    radial-gradient(ellipse at 48% 110%,
+      color-mix(in srgb, var(--color-indigo-600) 27%, transparent),
+      color-mix(in srgb, var(--color-navy-3) 60%, transparent) 38%,
+      transparent 72%);
+}
+
+@media (max-width: 640px) {
+  .thermal-page {
+    background-attachment: scroll;
+    background-size: 100% 100%;
+  }
+}
+
+::selection {
+  background: #e0f354;
+  color: #014634;
+}
+:focus-visible {
+  outline: 2px solid #fd550a;
+  outline-offset: 2px;
+}
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Keep the applicant viewport scrollable independently of its embedding page. */
+.applicant-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-navy-3) transparent;
+  scroll-padding-block: 1.5rem 2rem;
+  -webkit-overflow-scrolling: touch;
+}
+.applicant-scroll::-webkit-scrollbar {
+  display: block;
+  width: 8px;
+}
+.applicant-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-navy-3);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+.applicant-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fade-up {
+  animation: fadeUp 0.35s ease both;
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+.skeleton {
+  background: linear-gradient(90deg, #f3e6cf 0, #fbf5e6 50%, #f3e6cf 100%);
+  background-size: 400px 100%;
+  animation: shimmer 1.2s infinite linear;
+}
+.grid-bg {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+@keyframes popIn { from { opacity: 0; transform: translateY(12px) scale(.96) } to { opacity: 1; transform: none } }
+@keyframes toastIn { from { opacity: 0; translate: 0 16px; scale: .95 } to { opacity: 1; translate: 0 0; scale: 1 } }
+@keyframes floatSlow { 0%, 100% { transform: translate(0, 0) scale(1) } 50% { transform: translate(-40px, 30px) scale(1.12) } }
+@keyframes pulseDot { 0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, .6) } 100% { box-shadow: 0 0 0 8px rgba(52, 211, 153, 0) } }
+@keyframes drawLine { from { stroke-dashoffset: 1 } to { stroke-dashoffset: 0 } }
+@keyframes donutIn { from { opacity: 0; transform: scale(.85); transform-origin: 70px 70px } to { opacity: 1; transform: none; transform-origin: 70px 70px } }
+@keyframes gridDrift { to { background-position: 44px 44px } }
+
+.fade-in { animation: fadeIn .25s ease both }
+.pop-in { animation: popIn .3s cubic-bezier(.22, 1, .36, 1) both }
+.toast-in { animation: toastIn .35s cubic-bezier(.22, 1, .36, 1) both }
+.float-slow { animation: floatSlow 14s ease-in-out infinite }
+.pulse-dot { animation: pulseDot 1.8s ease-out infinite }
+.line-draw { stroke-dasharray: 1; animation: drawLine 1.2s cubic-bezier(.22, 1, .36, 1) .2s both }
+.area-fade { animation: fadeIn 1s ease .6s both }
+.donut-seg { animation: donutIn .6s cubic-bezier(.22, 1, .36, 1) both }
+.grid-bg { animation: gridDrift 6s linear infinite }
+.page-fade { animation: fadeIn .4s ease both }
+
+.page-enter > * { animation: fadeUp .5s cubic-bezier(.22, 1, .36, 1) both }
+.page-enter > :nth-child(2) { animation-delay: 70ms }
+.page-enter > :nth-child(3) { animation-delay: 140ms }
+.page-enter > :nth-child(4) { animation-delay: 210ms }
+.page-enter > :nth-child(5) { animation-delay: 280ms }
+.page-enter > :nth-child(n + 6) { animation-delay: 350ms }
+.page-enter > .grid > *, .page-enter .grid.stagger > * { animation: fadeUp .5s cubic-bezier(.22, 1, .36, 1) both }
+.page-enter > .grid > :nth-child(2) { animation-delay: .12s }
+.page-enter > .grid > :nth-child(3) { animation-delay: .18s }
+.page-enter > .grid > :nth-child(4) { animation-delay: .24s }
+.page-enter > .grid > :nth-child(5) { animation-delay: .3s }
+.page-enter > .grid > :nth-child(n + 6) { animation-delay: .36s }
+
+button, a { transition-property: color, background-color, border-color, box-shadow, transform, opacity; transition-duration: .18s }
+button:not(:disabled):active { transform: scale(.97) }
+button.shadow-card:hover, .hover-lift:hover { transform: translateY(-3px); box-shadow: var(--shadow-pop) }
+button.shadow-card:active { transform: translateY(-1px) scale(.99) }
+tbody tr { transition: background-color .15s ease }
+tbody tr:hover { background-color: rgba(253, 230, 138, .22) }
+input, select, textarea { transition: border-color .2s, box-shadow .2s }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; animation-delay: 0ms !important; transition-duration: .01ms !important }
+}
